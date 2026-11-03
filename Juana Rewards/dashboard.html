@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cafe Juana - Admin Dashboard</title>
+
+  <!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="dashboard.css?v=3">
+  <style>
+    /* Guaranteed Warm Cafe Palette (Overrides any cached styles) */
+    :root {
+      --dash-canvas: #ede3d2 !important;
+      --dash-header-bg: #f5eddf !important;
+      --dash-card-bg: #f8f2e6 !important;
+      --dash-card-elevated: #faf5ec !important;
+      --dash-border: #d4c5b0 !important;
+      --dash-border-subtle: #e0d4c2 !important;
+    }
+    body, .dashboard-layout, .dash-main-wrapper, .dash-content {
+      background-color: #ede3d2 !important;
+    }
+    .dash-header {
+      background-color: #f5eddf !important;
+      border-bottom-color: #d4c5b0 !important;
+    }
+    .dash-card, .stat-card {
+      background-color: #f8f2e6 !important;
+      border-color: #d4c5b0 !important;
+    }
+    .search-input {
+      background-color: #ede3d2 !important;
+      border-color: #d4c5b0 !important;
+    }
+    .search-input:focus {
+      background-color: #faf5ec !important;
+    }
+    .search-results-modal {
+      background-color: #f8f2e6 !important;
+      border-color: #d4c5b0 !important;
+    }
+    .filter-select {
+      background-color: #ede3d2 !important;
+      border-color: #d4c5b0 !important;
+    }
+    .promo-item-card {
+      background-color: #ede3d2 !important;
+      border-color: #d4c5b0 !important;
+    }
+    .promo-item-card:hover {
+      background-color: #faf5ec !important;
+    }
+    .dash-table th {
+      border-bottom-color: #d4c5b0 !important;
+    }
+    .dash-table td {
+      border-bottom-color: #e0d4c2 !important;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    
+    <!-- ====================================================================
+         1. SIDEBAR NAVIGATION
+         ==================================================================== -->
+    <aside class="dash-sidebar" id="dashSidebar" aria-label="Main Navigation">
+      
+      <!-- Botanical Background Illustration in Corner -->
+      <img src="assets/botanical-branch.svg" class="sidebar-botanical-bg" alt="" aria-hidden="true">
+
+      <div>
+        <!-- Sidebar Brand Header -->
+        <div class="sidebar-header">
+          <a href="dashboard.html" class="brand-link" title="Cafe Juana Dashboard">
+            <img src="assets/logo.svg" alt="Cafe Juana Seal" class="brand-seal-icon">
+            <div class="brand-title">
+              <span class="brand-name">Cafe Juana</span>
+              <span class="brand-tag">Coffee &amp; Rewards</span>
+            </div>
+          </a>
+          <button type="button" class="sidebar-toggle-btn" id="sidebarToggleBtn" title="Toggle Sidebar Expand/Collapse">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Navigation Menu -->
+        <nav class="sidebar-nav">
+          <div class="nav-group-title">Main Menu</div>
+          <ul class="nav-list">
+            <li>
+              <a href="dashboard.html" class="nav-link active">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="14" width="7" height="7"></rect>
+                  <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                <span class="nav-text">Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a href="#customers" class="nav-link">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                <span class="nav-text">Customers</span>
+              </a>
+            </li>
+            <li>
+              <a href="#purchases" class="nav-link">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
+                  <path d="M3 6h18"></path>
+                  <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+                <span class="nav-text">Purchases &amp; Stamps</span>
+              </a>
+            </li>
+            <li>
+              <a href="#rewards" class="nav-link">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 12 20 22 4 22 4 12"></polyline>
+                  <rect x="2" y="7" width="20" height="5"></rect>
+                  <line x1="12" y1="22" x2="12" y2="7"></line>
+                  <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7Z"></path>
+                  <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7Z"></path>
+                </svg>
+                <span class="nav-text">Rewards &amp; Redemptions</span>
+              </a>
+            </li>
+            <li>
+              <a href="#promotions" class="nav-link">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+                <span class="nav-text">Promotions &amp; Events</span>
+              </a>
+            </li>
+            <li>
+              <a href="#reports" class="nav-link">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="20" x2="18" y2="10"></line>
+                  <line x1="12" y1="20" x2="12" y2="4"></line>
+                  <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+                <span class="nav-text">Reports &amp; Analytics</span>
+              </a>
+            </li>
+            <li>
+              <a href="#settings" class="nav-link">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                <span class="nav-text">Account Settings</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Sidebar Footer (Log out link leading back to index.html) -->
+      <div class="sidebar-footer">
+        <a href="index.html" class="btn-logout" title="Log out of Cafe Juana">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          <span class="sidebar-footer-text">Log Out</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- ====================================================================
+         2. MAIN WORKSPACE AREA
+         ==================================================================== -->
+    <div class="dash-main-wrapper" id="dashMainWrapper">
+      
+      <!-- Top Header Navigation -->
+      <header class="dash-header">
+        
+        <!-- Search Input -->
+        <div class="search-container">
+          <div class="search-input-wrapper">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input 
+              type="text" 
+              class="search-input" 
+              id="globalSearchInput" 
+              placeholder="Search customers, rewards, purchases, and more..."
+            >
+            <button type="button" class="search-clear-btn" id="searchClearBtn" aria-label="Clear Search">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Empty State Search Dropdown / Modal (Matching Figma Variant) -->
+          <div class="search-results-modal" id="searchModal">
+            <div class="search-modal-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </div>
+            <h4 class="search-modal-title">No Results Found</h4>
+            <p class="search-modal-text">
+              No customers, rewards, or purchases matched this search. Try entering a different spelling or keyword.
+            </p>
+            <button type="button" class="btn-clear-search" id="modalClearBtn">Clear Search</button>
+          </div>
+        </div>
+
+        <!-- Header Actions: Notification Bell & Profile -->
+        <div class="header-actions">
+          <button type="button" class="action-icon-btn" title="Notifications" aria-label="Notifications">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
+              <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
+            </svg>
+            <span class="notification-badge"></span>
+          </button>
+
+          <!-- User Profile Chip -->
+          <div class="user-profile-chip" title="Admin Profile">
+            <div class="user-avatar">AJ</div>
+            <div class="user-info">
+              <span class="user-name">Admin Juana</span>
+              <span class="user-role">Super Administrator</span>
+            </div>
+            <svg class="user-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </div>
+        </div>
+
+      </header>
+
+      <!-- Main Scrollable Dashboard Content -->
+      <main class="dash-content">
+        
+        <!-- ================================================================
+             SECTION A: Hero Welcome Banner
+             ================================================================ -->
+        <section class="welcome-banner">
+          <div class="banner-left">
+            <span class="banner-date-badge">MONDAY, 14 OCT &bull; REWARDS HQ</span>
+            <h1 class="banner-title">Welcome to Cafe Juana</h1>
+            <p class="banner-desc">
+              Manage your loyalty program, reward your valued customers, and grow a stronger Cafe Juana community &mdash; all in one place.
+            </p>
+          </div>
+
+          <div class="banner-right">
+            <img 
+              src="assets/banner-coffee.jpg" 
+              alt="Steaming Cafe Juana Latte Art" 
+              class="banner-img"
+            >
+          </div>
+        </section>
+
+        <!-- ================================================================
+             SECTION B: 4 Key Metric Stat Cards
+             ================================================================ -->
+        <section class="stats-grid" aria-label="Key Performance Indicators">
+          
+          <!-- Card 1: Customer Overview -->
+          <article class="stat-card">
+            <div class="stat-icon-box stat-icon-green">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <div class="stat-label">Customer Overview</div>
+              <div class="stat-value-row">
+                <span class="stat-value">1,248</span>
+                <span class="stat-pill positive">&#8593; 12%</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2: Stamps Awarded -->
+          <article class="stat-card">
+            <div class="stat-icon-box stat-icon-gold">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="m9 12 2 2 4-4"></path>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <div class="stat-label">Stamps Awarded</div>
+              <div class="stat-value-row">
+                <span class="stat-value">3,593</span>
+                <span class="stat-pill positive">&#8593; 8%</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 3: Rewards Redeemed -->
+          <article class="stat-card">
+            <div class="stat-icon-box stat-icon-rose">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 12 20 22 4 22 4 12"></polyline>
+                <rect x="2" y="7" width="20" height="5"></rect>
+                <line x1="12" y1="22" x2="12" y2="7"></line>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <div class="stat-label">Rewards Redeemed</div>
+              <div class="stat-value-row">
+                <span class="stat-value">384</span>
+                <span class="stat-pill positive">&#8593; 15%</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 4: Average Rating -->
+          <article class="stat-card">
+            <div class="stat-icon-box stat-icon-sage">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <div class="stat-label">Average Rating</div>
+              <div class="stat-value-row">
+                <span class="stat-value">4.8</span>
+                <span class="stat-pill neutral">230 rev</span>
+              </div>
+            </div>
+          </article>
+
+        </section>
+
+        <!-- ================================================================
+             SECTION C: Charts & Analytics (2 Columns)
+             ================================================================ -->
+        <section class="analytics-grid">
+          
+          <!-- Left Chart: Customer & Purchase Activity -->
+          <article class="dash-card">
+            <div class="card-header-row">
+              <div class="card-title-group">
+                <h3>Customer and Purchase Activity</h3>
+                <p>A quick view of customer growth and purchase trends</p>
+              </div>
+              <select class="filter-select" aria-label="Filter timeline">
+                <option>Last 6 Months</option>
+                <option>Last 30 Days</option>
+                <option>This Year</option>
+              </select>
+            </div>
+
+            <!-- Custom Scalable Bar Chart & Trend Curve -->
+            <div class="chart-container">
+              <svg class="bar-chart-svg" viewBox="0 0 540 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Background Gridlines -->
+                <line x1="40" y1="30" x2="520" y2="30" stroke="#e8e2d4" stroke-width="1" stroke-dasharray="3 3"/>
+                <line x1="40" y1="80" x2="520" y2="80" stroke="#e8e2d4" stroke-width="1" stroke-dasharray="3 3"/>
+                <line x1="40" y1="130" x2="520" y2="130" stroke="#e8e2d4" stroke-width="1" stroke-dasharray="3 3"/>
+                <line x1="40" y1="180" x2="520" y2="180" stroke="#ded7c6" stroke-width="1.2"/>
+
+                <!-- Y-Axis Values -->
+                <text x="15" y="34" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" fill="#96a298">4k</text>
+                <text x="15" y="84" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" fill="#96a298">2.5k</text>
+                <text x="15" y="134" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" fill="#96a298">1k</text>
+                <text x="22" y="184" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" fill="#96a298">0</text>
+
+                <!-- Month Bars (May, Jun, Jul, Aug, Sep, Oct) -->
+                <!-- May -->
+                <rect x="70" y="105" width="26" height="75" rx="5" fill="#2d6a4f" opacity="0.85"/>
+                <text x="83" y="202" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" fill="#677569" text-anchor="middle">May</text>
+
+                <!-- Jun -->
+                <rect x="150" y="85" width="26" height="95" rx="5" fill="#2d6a4f" opacity="0.9"/>
+                <text x="163" y="202" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" fill="#677569" text-anchor="middle">Jun</text>
+
+                <!-- Jul -->
+                <rect x="230" y="65" width="26" height="115" rx="5" fill="#1b4332"/>
+                <text x="243" y="202" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" fill="#677569" text-anchor="middle">Jul</text>
+
+                <!-- Aug -->
+                <rect x="310" y="55" width="26" height="125" rx="5" fill="#1b4332"/>
+                <text x="323" y="202" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" fill="#677569" text-anchor="middle">Aug</text>
+
+                <!-- Sep -->
+                <rect x="390" y="70" width="26" height="110" rx="5" fill="#2d6a4f" opacity="0.9"/>
+                <text x="403" y="202" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" fill="#677569" text-anchor="middle">Sep</text>
+
+                <!-- Oct (Current Peak) -->
+                <rect x="470" y="42" width="26" height="138" rx="5" fill="#1b4332"/>
+                <text x="483" y="202" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="700" fill="#1b4332" text-anchor="middle">Oct</text>
+
+                <!-- Growth Trend Curve Line Over Bars -->
+                <path d="M 83,100 C 120,90 140,80 163,80 C 200,80 210,60 243,58 C 280,56 290,50 323,48 C 360,46 380,68 403,64 C 440,60 450,38 483,35" 
+                      fill="none" stroke="#52b788" stroke-width="3" stroke-linecap="round"/>
+                
+                <!-- Glowing Trend Points -->
+                <circle cx="83" cy="100" r="4" fill="#52b788" stroke="#faf7ee" stroke-width="2"/>
+                <circle cx="163" cy="80" r="4" fill="#52b788" stroke="#faf7ee" stroke-width="2"/>
+                <circle cx="243" cy="58" r="4" fill="#52b788" stroke="#faf7ee" stroke-width="2"/>
+                <circle cx="323" cy="48" r="4" fill="#52b788" stroke="#faf7ee" stroke-width="2"/>
+                <circle cx="403" cy="64" r="4" fill="#52b788" stroke="#faf7ee" stroke-width="2"/>
+                <circle cx="483" cy="35" r="5" fill="#1b4332" stroke="#faf7ee" stroke-width="2.5"/>
+              </svg>
+
+              <!-- Chart Legend -->
+              <div class="chart-legend">
+                <span class="legend-item">
+                  <span class="legend-color-dot legend-dot-primary"></span>
+                  <span>Purchases</span>
+                </span>
+                <span class="legend-item">
+                  <span class="legend-color-dot legend-dot-accent"></span>
+                  <span>Customer Growth Trend</span>
+                </span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Right Chart: Rewards & Redemption Overview -->
+          <article class="dash-card">
+            <div class="card-header-row">
+              <div class="card-title-group">
+                <h3>Rewards and Redemption Overview</h3>
+                <p>See how your rewards are performing</p>
+              </div>
+              <select class="filter-select" aria-label="Filter redemption timeline">
+                <option>Last 30 Days</option>
+                <option>This Week</option>
+                <option>All Time</option>
+              </select>
+            </div>
+
+            <!-- Donut Chart & Breakdown -->
+            <div class="donut-chart-layout">
+              <!-- SVG Donut Chart -->
+              <div class="donut-svg-wrapper">
+                <svg viewBox="0 0 100 100" width="100%" height="100%">
+                  <!-- Free Beverage: 38% -> 136.8 deg -->
+                  <circle cx="50" cy="50" r="38" fill="none" stroke="#1b4332" stroke-width="16" stroke-dasharray="90.7 238.7" stroke-dashoffset="0"/>
+                  <!-- Pastry Discount: 27% -> 64.4 -->
+                  <circle cx="50" cy="50" r="38" fill="none" stroke="#2d6a4f" stroke-width="16" stroke-dasharray="64.4 238.7" stroke-dashoffset="-90.7"/>
+                  <!-- Seasonal Dessert: 19% -> 45.3 -->
+                  <circle cx="50" cy="50" r="38" fill="none" stroke="#52b788" stroke-width="16" stroke-dasharray="45.3 238.7" stroke-dashoffset="-155.1"/>
+                  <!-- Special Discount: 11% -> 26.2 -->
+                  <circle cx="50" cy="50" r="38" fill="none" stroke="#d8f3dc" stroke-width="16" stroke-dasharray="26.2 238.7" stroke-dashoffset="-200.4"/>
+                  <!-- Other: 5% -> 11.9 -->
+                  <circle cx="50" cy="50" r="38" fill="none" stroke="#c59b27" stroke-width="16" stroke-dasharray="11.9 238.7" stroke-dashoffset="-226.6"/>
+                </svg>
+                <div class="donut-center-stat">
+                  <span class="donut-center-number">384</span>
+                  <span class="donut-center-label">Redeemed</span>
+                </div>
+              </div>
+
+              <!-- Breakdown List -->
+              <ul class="donut-breakdown-list">
+                <li class="donut-item">
+                  <div class="donut-item-left">
+                    <span class="donut-color-pip" style="background-color: #1b4332;"></span>
+                    <span>Free Beverage</span>
+                  </div>
+                  <div class="donut-item-right">
+                    <span class="donut-pct">38%</span>
+                    <span class="donut-count">146</span>
+                  </div>
+                </li>
+
+                <li class="donut-item">
+                  <div class="donut-item-left">
+                    <span class="donut-color-pip" style="background-color: #2d6a4f;"></span>
+                    <span>Pastry Discount</span>
+                  </div>
+                  <div class="donut-item-right">
+                    <span class="donut-pct">27%</span>
+                    <span class="donut-count">104</span>
+                  </div>
+                </li>
+
+                <li class="donut-item">
+                  <div class="donut-item-left">
+                    <span class="donut-color-pip" style="background-color: #52b788;"></span>
+                    <span>Seasonal Dessert</span>
+                  </div>
+                  <div class="donut-item-right">
+                    <span class="donut-pct">19%</span>
+                    <span class="donut-count">73</span>
+                  </div>
+                </li>
+
+                <li class="donut-item">
+                  <div class="donut-item-left">
+                    <span class="donut-color-pip" style="background-color: #a3c9ae;"></span>
+                    <span>Special Discount</span>
+                  </div>
+                  <div class="donut-item-right">
+                    <span class="donut-pct">11%</span>
+                    <span class="donut-count">42</span>
+                  </div>
+                </li>
+
+                <li class="donut-item">
+                  <div class="donut-item-left">
+                    <span class="donut-color-pip" style="background-color: #c59b27;"></span>
+                    <span>Other</span>
+                  </div>
+                  <div class="donut-item-right">
+                    <span class="donut-pct">5%</span>
+                    <span class="donut-count">19</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </article>
+
+        </section>
+
+        <!-- ================================================================
+             SECTION D: Bottom Row (Activity Table & Promotions)
+             ================================================================ -->
+        <section class="bottom-grid">
+          
+          <!-- Recent Loyalty Activity Table -->
+          <article class="dash-card">
+            <div class="card-header-row">
+              <div class="card-title-group">
+                <h3>Recent Loyalty Activity</h3>
+                <p>Live stream of reward events and purchases</p>
+              </div>
+              <button type="button" class="btn-card-action">View All</button>
+            </div>
+
+            <div class="activity-table-wrapper">
+              <table class="dash-table">
+                <thead>
+                  <tr>
+                    <th>Customer</th>
+                    <th>Activity</th>
+                    <th>Stamps</th>
+                    <th>Date / Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="customer-cell">
+                        <div class="customer-avatar-small">JC</div>
+                        <strong>Juan Dela Cruz</strong>
+                      </div>
+                    </td>
+                    <td>Completed Purchase</td>
+                    <td><span class="stamps-badge plus">+2</span></td>
+                    <td class="date-text">Oct 14, 2024 &bull; 10:45 AM</td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div class="customer-cell">
+                        <div class="customer-avatar-small">MS</div>
+                        <strong>Maria Santos</strong>
+                      </div>
+                    </td>
+                    <td>Free Beverage Claimed</td>
+                    <td><span class="stamps-badge minus">-10</span></td>
+                    <td class="date-text">Oct 14, 2024 &bull; 09:30 AM</td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div class="customer-cell">
+                        <div class="customer-avatar-small">AG</div>
+                        <strong>Anna Gomez</strong>
+                      </div>
+                    </td>
+                    <td>Stamp Milestone Reached</td>
+                    <td><span class="stamps-badge plus">+5</span></td>
+                    <td class="date-text">Oct 13, 2024 &bull; 04:15 PM</td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div class="customer-cell">
+                        <div class="customer-avatar-small">JR</div>
+                        <strong>Jose Rizal</strong>
+                      </div>
+                    </td>
+                    <td>Redeemed Pastry Discount</td>
+                    <td><span class="stamps-badge minus">-5</span></td>
+                    <td class="date-text">Oct 13, 2024 &bull; 02:00 PM</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <!-- Promotions and Events -->
+          <article class="dash-card">
+            <div class="card-header-row">
+              <div class="card-title-group">
+                <h3>Promotions and Events</h3>
+                <p>Manage your ongoing and upcoming campaigns</p>
+              </div>
+              <button type="button" class="btn-card-action">View All</button>
+            </div>
+
+            <div class="promos-list">
+              <!-- Promo Card 1 -->
+              <div class="promo-item-card">
+                <img 
+                  src="assets/promo-coffee.jpg" 
+                  alt="Coffee & Friends Promotion" 
+                  class="promo-thumb"
+                >
+                <div class="promo-details">
+                  <div class="promo-header-row">
+                    <span class="promo-name">Coffee &amp; Friends</span>
+                    <span class="promo-status-pill active">Active</span>
+                  </div>
+                  <div class="promo-dates">Oct 1 &ndash; Oct 31, 2024</div>
+                  <p class="promo-desc">
+                    Buy 1 get 1 on signature drip coffee for loyalty members every weekday afternoon.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Promo Card 2 -->
+              <div class="promo-item-card">
+                <img 
+                  src="assets/promo-pastry.jpg" 
+                  alt="Weekend Treats Promotion" 
+                  class="promo-thumb"
+                >
+                <div class="promo-details">
+                  <div class="promo-header-row">
+                    <span class="promo-name">Weekend Treats</span>
+                    <span class="promo-status-pill upcoming">Upcoming</span>
+                  </div>
+                  <div class="promo-dates">Every Sat &amp; Sun &bull; All Day</div>
+                  <p class="promo-desc">
+                    Earn double stamps on all fresh croissant and specialty pastry orders.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </section>
+
+      </main>
+
+    </div>
+
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,747 @@
+/* ==========================================================================
+   CAFE JUANA - REWARDS ADMIN PORTAL
+   Design System & Authentication Stylesheet
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. CSS Variables & Theme Tokens
+   -------------------------------------------------------------------------- */
+:root {
+  /* Brand Green Palette */
+  --color-primary: #1b4332;
+  --color-primary-hover: #143527;
+  --color-primary-active: #0f281d;
+  --color-primary-light: #2d6a4f;
+  --color-primary-surface: #eaf4ed;
+  --color-primary-border: #b7d5bf;
+
+  /* Accent & Sage Foliage */
+  --color-sage: #8fa389;
+  --color-sage-light: #d6e2d1;
+  --color-sage-subtle: #f0f4ee;
+
+  /* Neutral & Canvas Tones (Rich Warm Cafe & Linen Palette) */
+  --color-canvas: #ede3d2;
+  --color-card-bg: #f8f2e6;
+  --color-input-bg: #faf5eb;
+  --color-text-main: #1c271e;
+  --color-text-muted: #5e6c60;
+  --color-text-subtle: #89978c;
+  --color-border: #d4c5b0;
+  --color-border-focus: #1b4332;
+
+  /* Hero Gradient & Dark Tones */
+  --hero-overlay-start: rgba(9, 26, 17, 0.72);
+  --hero-overlay-end: rgba(6, 19, 12, 0.90);
+
+  /* Typography */
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  /* Transitions & Shadows */
+  --transition-smooth: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-subtle: 0 4px 20px -2px rgba(27, 67, 50, 0.06);
+  --shadow-button: 0 4px 14px rgba(27, 67, 50, 0.22);
+  --shadow-focus: 0 0 0 3.5px rgba(27, 67, 50, 0.12);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   2. Reset & Global Base
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: var(--font-sans);
+  background-color: var(--color-canvas);
+  color: var(--color-text-main);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   3. Main Split-Screen Layout
+   -------------------------------------------------------------------------- */
+.auth-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* --- Left Hero Panel --- */
+.auth-hero {
+  flex: 0 0 40%;
+  position: relative;
+  background-color: #0b1e14;
+  background-image: 
+    linear-gradient(var(--hero-overlay-start), var(--hero-overlay-end)),
+    url('assets/bg-leaves.jpg'),
+    url('https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=1200&q=80');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 56px 48px;
+  color: #ffffff;
+  overflow: hidden;
+}
+
+/* Subtle Vignette & Leaf Highlights */
+.auth-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 30%, rgba(45, 106, 79, 0.25) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  margin: auto 0;
+  max-width: 380px;
+}
+
+.hero-brand-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #a3c9ae;
+  margin-bottom: 24px;
+}
+
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.6rem, 4vw, 3.5rem);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  margin-bottom: 24px;
+}
+
+.hero-title span {
+  display: block;
+}
+
+.hero-desc {
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: rgba(240, 245, 241, 0.85);
+  font-weight: 300;
+  max-width: 320px;
+}
+
+.hero-footer {
+  position: relative;
+  z-index: 2;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.45);
+  text-transform: uppercase;
+}
+
+/* --- Right Interactive Form Panel --- */
+.auth-main {
+  flex: 1;
+  position: relative;
+  background-color: var(--color-canvas);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  overflow: hidden;
+}
+
+/* Botanical Corner Graphics */
+.botanical-corner {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  user-select: none;
+}
+
+.botanical-top-right {
+  top: -20px;
+  right: -20px;
+  width: 260px;
+  height: 260px;
+  opacity: 0.88;
+  transform: rotate(0deg);
+}
+
+.botanical-bottom-left {
+  bottom: -20px;
+  left: -20px;
+  width: 260px;
+  height: 260px;
+  opacity: 0.78;
+  transform: rotate(180deg) scaleX(-1);
+}
+
+/* Center Form Wrapper */
+.auth-card-wrapper {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 390px;
+  margin: 0 auto;
+}
+
+/* --------------------------------------------------------------------------
+   4. Screen Transition States
+   -------------------------------------------------------------------------- */
+.auth-screen {
+  display: none;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.auth-screen.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  animation: screenFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes screenFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. Brand Crest / Logo
+   -------------------------------------------------------------------------- */
+.brand-logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 22px;
+}
+
+.brand-seal {
+  width: 78px;
+  height: 78px;
+  filter: drop-shadow(0 2px 8px rgba(27, 67, 50, 0.08));
+}
+
+/* --------------------------------------------------------------------------
+   6. Screen Header Typography
+   -------------------------------------------------------------------------- */
+.screen-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.screen-eyebrow {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #647a69;
+  margin-bottom: 8px;
+}
+
+.screen-title {
+  font-family: var(--font-serif);
+  font-size: 2.05rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-text-main);
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.screen-subtitle {
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  font-weight: 400;
+  padding: 0 8px;
+}
+
+/* --------------------------------------------------------------------------
+   7. Form Controls & Inputs
+   -------------------------------------------------------------------------- */
+.form-group {
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #27362a;
+  margin-bottom: 6px;
+  letter-spacing: 0.01em;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon-left {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 17px;
+  height: 17px;
+  color: var(--color-text-subtle);
+  pointer-events: none;
+  transition: color 0.2s ease;
+}
+
+.form-input {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px 0 40px;
+  background-color: var(--color-input-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  color: var(--color-text-main);
+  transition: var(--transition-smooth);
+}
+
+.form-input::placeholder {
+  color: #a5b0a7;
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+
+.form-input:focus {
+  outline: none;
+  background-color: #fdfbf7;
+  border-color: var(--color-border-focus);
+  box-shadow: var(--shadow-focus);
+}
+
+.form-input:focus + .input-icon-left,
+.input-wrapper:focus-within .input-icon-left {
+  color: var(--color-primary);
+}
+
+/* Password Toggle Eye Button */
+.input-toggle-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 4px;
+  color: var(--color-text-subtle);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: color 0.2s ease;
+}
+
+.input-toggle-btn:hover {
+  color: var(--color-primary);
+}
+
+.input-toggle-btn svg {
+  width: 17px;
+  height: 17px;
+}
+
+/* Helper Text */
+.form-helper {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+/* --------------------------------------------------------------------------
+   8. Remember Me & Forgot Password Row
+   -------------------------------------------------------------------------- */
+.form-options-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+  margin-bottom: 22px;
+  font-size: 0.8125rem;
+}
+
+.checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  user-select: none;
+}
+
+.custom-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 4px;
+  background-color: var(--color-input-bg);
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+  transition: var(--transition-smooth);
+}
+
+.custom-checkbox::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  transform: scale(0);
+  background-color: #ffffff;
+  border-radius: 2px;
+  transition: transform 0.15s ease-in-out;
+}
+
+.custom-checkbox:checked {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.custom-checkbox:checked::before {
+  transform: scale(1);
+}
+
+.link-subtle {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.8125rem;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.link-subtle:hover {
+  color: var(--color-primary-hover);
+  text-decoration: underline;
+}
+
+/* --------------------------------------------------------------------------
+   9. Action Buttons
+   -------------------------------------------------------------------------- */
+.btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 44px;
+  background-color: var(--color-primary);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  box-shadow: var(--shadow-button);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(27, 67, 50, 0.28);
+}
+
+.btn-primary:active {
+  background-color: var(--color-primary-active);
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(27, 67, 50, 0.2);
+}
+
+.btn-primary .btn-arrow {
+  transition: transform 0.2s ease;
+  width: 16px;
+  height: 16px;
+}
+
+.btn-primary:hover .btn-arrow {
+  transform: translateX(3px);
+}
+
+/* Secondary Back Button / Link */
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  margin-top: 16px;
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font-family: var(--font-sans);
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px 0;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-back:hover {
+  color: var(--color-primary-hover);
+  transform: translateX(-2px);
+}
+
+.btn-back svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.2s ease;
+}
+
+.btn-back:hover svg {
+  transform: translateX(-2px);
+}
+
+/* --------------------------------------------------------------------------
+   10. Screen 3: Check Inbox Status Badge
+   -------------------------------------------------------------------------- */
+.inbox-badge-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0 16px;
+}
+
+.inbox-badge {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background-color: var(--color-primary-surface);
+  border: 1px solid var(--color-primary-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  box-shadow: 0 4px 12px rgba(45, 106, 79, 0.12);
+  animation: pulseBadge 2.2s infinite ease-in-out;
+}
+
+.inbox-badge svg {
+  width: 26px;
+  height: 26px;
+  stroke-width: 2.5;
+}
+
+@keyframes pulseBadge {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 12px rgba(45, 106, 79, 0.12);
+  }
+  50% {
+    transform: scale(1.04);
+    box-shadow: 0 6px 18px rgba(45, 106, 79, 0.2);
+  }
+}
+
+.inbox-notice-text {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  margin-bottom: 24px;
+  line-height: 1.45;
+}
+
+.resend-row {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+}
+
+.btn-resend {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.btn-resend:disabled {
+  color: var(--color-text-subtle);
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+/* --------------------------------------------------------------------------
+   11. Security & Footer Notices
+   -------------------------------------------------------------------------- */
+.auth-footer-notice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 28px;
+  font-size: 0.72rem;
+  color: var(--color-text-subtle);
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+.auth-footer-notice svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+  color: #7b8a7e;
+}
+
+/* --------------------------------------------------------------------------
+   12. Live Interactive Switcher (Demo Pill)
+   -------------------------------------------------------------------------- */
+.demo-switcher-bar {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  background: rgba(20, 36, 26, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 6px 10px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.demo-pill-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.demo-pill-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.demo-pill-btn.active {
+  color: #0d261a;
+  background-color: var(--color-card-bg);
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* --------------------------------------------------------------------------
+   13. Responsive Media Queries
+   -------------------------------------------------------------------------- */
+@media (max-width: 960px) {
+  .auth-hero {
+    flex: 0 0 45%;
+    padding: 40px 32px;
+  }
+  .hero-title {
+    font-size: 2.4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .auth-container {
+    flex-direction: column;
+  }
+
+  .auth-hero {
+    flex: none;
+    min-height: 240px;
+    padding: 36px 24px 28px;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .hero-content {
+    margin: 0 auto;
+    max-width: 100%;
+  }
+
+  .hero-brand-tag {
+    margin-bottom: 12px;
+  }
+
+  .hero-title {
+    font-size: 2.1rem;
+    margin-bottom: 10px;
+  }
+
+  .hero-title span {
+    display: inline;
+    margin-right: 6px;
+  }
+
+  .hero-desc {
+    font-size: 0.88rem;
+    max-width: 100%;
+  }
+
+  .hero-footer {
+    display: none;
+  }
+
+  .auth-main {
+    padding: 36px 20px 80px;
+  }
+
+  .botanical-top-right,
+  .botanical-bottom-left {
+    width: 180px;
+    height: 180px;
+    opacity: 0.55;
+  }
+
+  .demo-switcher-bar {
+    bottom: 12px;
+    padding: 4px 6px;
+    gap: 4px;
+  }
+
+  .demo-pill-btn {
+    font-size: 0.7rem;
+    padding: 5px 10px;
+  }
+}

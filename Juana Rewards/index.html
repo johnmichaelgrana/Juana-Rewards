@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cafe Juana - Admin Portal</title>
+
+  <!-- Google Fonts: Playfair Display (Serif) & Plus Jakarta Sans (Modern Sans-Serif) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Main Stylesheet (with cache-busting version) -->
+  <link rel="stylesheet" href="style.css?v=3">
+  <style>
+    /* Guaranteed Warm Cafe Palette (Overrides any cached styles) */
+    :root {
+      --color-canvas: #ede3d2 !important;
+      --color-card-bg: #f8f2e6 !important;
+      --color-input-bg: #faf5eb !important;
+      --color-border: #d4c5b0 !important;
+    }
+    body, .auth-container, .auth-main {
+      background-color: #ede3d2 !important;
+    }
+    .form-input {
+      background-color: #faf5eb !important;
+      border-color: #d4c5b0 !important;
+    }
+    .custom-checkbox {
+      background-color: #faf5eb !important;
+      border-color: #d4c5b0 !important;
+    }
+    .demo-pill-btn.active {
+      background-color: #f8f2e6 !important;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-container">
+    
+    <!-- ====================================================================
+         LEFT PANEL: Branding Hero (Coffee Plant Visual & Typography)
+         ==================================================================== -->
+    <aside class="auth-hero" aria-label="Branding Section">
+      <div class="hero-content">
+        <span class="hero-brand-tag">CAFE JUANA</span>
+        <h1 class="hero-title">
+          <span>Manage.</span>
+          <span>Monitor.</span>
+          <span>Grow.</span>
+        </h1>
+        <p class="hero-desc">
+          Everything you need to manage the Cafe Juana loyalty experience.
+        </p>
+      </div>
+
+      <div class="hero-footer">
+        <span>Exclusive Loyalty Management Portal &bull; Est. 2024</span>
+      </div>
+    </aside>
+
+    <!-- ====================================================================
+         RIGHT PANEL: Interactive Authentication Cards
+         ==================================================================== -->
+    <main class="auth-main" aria-label="Authentication Form Area">
+      
+      <!-- Corner Botanical Leaves Illustrations -->
+      <img src="assets/botanical-branch.svg" class="botanical-corner botanical-top-right" alt="Botanical leaf accent" aria-hidden="true">
+      <img src="assets/botanical-branch.svg" class="botanical-corner botanical-bottom-left" alt="Botanical leaf accent" aria-hidden="true">
+
+      <div class="auth-card-wrapper">
+        
+        <!-- Shared Brand Logo Crest -->
+        <header class="brand-logo-container">
+          <img src="assets/logo.svg" alt="Cafe Juana Logo" class="brand-seal">
+        </header>
+
+        <!-- ----------------------------------------------------------------
+             SCREEN 1: Admin Login
+             ---------------------------------------------------------------- -->
+        <section id="screen-login" class="auth-screen active" aria-labelledby="login-title">
+          <div class="screen-header">
+            <span class="screen-eyebrow">PORTAL</span>
+            <h2 id="login-title" class="screen-title">Admin Login</h2>
+            <p class="screen-subtitle">Access your management dashboard</p>
+          </div>
+
+          <form id="loginForm" action="dashboard.html" method="GET" autocomplete="on">
+            <!-- Email Address -->
+            <div class="form-group">
+              <label for="loginEmail" class="form-label">Email Address</label>
+              <div class="input-wrapper">
+                <svg class="input-icon-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                </svg>
+                <input 
+                  type="email" 
+                  id="loginEmail" 
+                  class="form-input" 
+                  placeholder="Enter your email address" 
+                  autocomplete="email"
+                >
+              </div>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+              <label for="loginPassword" class="form-label">Password</label>
+              <div class="input-wrapper">
+                <svg class="input-icon-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                <input 
+                  type="password" 
+                  id="loginPassword" 
+                  class="form-input" 
+                  placeholder="Enter your password" 
+                  autocomplete="current-password"
+                >
+                <button type="button" class="input-toggle-btn" id="togglePasswordBtn" aria-label="Toggle password visibility">
+                  <!-- Eye Icon (Default) -->
+                  <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Remember me & Forgot Password Row -->
+            <div class="form-options-row">
+              <label class="checkbox-label" for="rememberMe">
+                <input type="checkbox" id="rememberMe" class="custom-checkbox">
+                <span>Remember me</span>
+              </label>
+              <a href="#forgot" class="link-subtle" id="linkToForgot">Forgot password?</a>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn-primary">
+              <span>Log in</span>
+              <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </button>
+          </form>
+
+          <!-- Security Notice -->
+          <footer class="auth-footer-notice">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            <span>Authorized personnel only</span>
+          </footer>
+        </section>
+
+
+        <!-- ----------------------------------------------------------------
+             SCREEN 2: Forgot Password
+             ---------------------------------------------------------------- -->
+        <section id="screen-forgot" class="auth-screen" aria-labelledby="forgot-title">
+          <div class="screen-header">
+            <span class="screen-eyebrow">ACCOUNT RECOVERY</span>
+            <h2 id="forgot-title" class="screen-title">Forgot your password?</h2>
+            <p class="screen-subtitle">Enter your administrator email and we'll send you a link to reset your password.</p>
+          </div>
+
+          <form id="forgotForm">
+            <!-- Email Address -->
+            <div class="form-group">
+              <label for="recoveryEmail" class="form-label">Email Address</label>
+              <div class="input-wrapper">
+                <svg class="input-icon-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                </svg>
+                <input 
+                  type="email" 
+                  id="recoveryEmail" 
+                  class="form-input" 
+                  placeholder="Enter your email address" 
+                  required 
+                  autocomplete="email"
+                >
+              </div>
+              <p class="form-helper">A reset link will be sent to this email if an account exists.</p>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn-primary" style="margin-top: 24px;">
+              <span>Send reset link</span>
+              <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </button>
+
+            <!-- Back to Login Button -->
+            <button type="button" class="btn-back" id="backToLoginFromForgot">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m15 18-6-6 6-6"></path>
+              </svg>
+              <span>Back to Login</span>
+            </button>
+          </form>
+
+          <!-- Support Notice -->
+          <footer class="auth-footer-notice">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+            <span>Need immediate help? Contact system administrator</span>
+          </footer>
+        </section>
+
+
+        <!-- ----------------------------------------------------------------
+             SCREEN 3: Check Your Inbox
+             ---------------------------------------------------------------- -->
+        <section id="screen-inbox" class="auth-screen" aria-labelledby="inbox-title">
+          <div class="screen-header">
+            <span class="screen-eyebrow">PASSWORD RESET</span>
+            <h2 id="inbox-title" class="screen-title">Check your inbox</h2>
+            <p class="screen-subtitle">For administrator accounts matching that email, password reset instructions were sent.</p>
+          </div>
+
+          <!-- Circular Green Checkmark Badge -->
+          <div class="inbox-badge-wrapper">
+            <div class="inbox-badge" aria-label="Success checkmark">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+          </div>
+
+          <p class="inbox-notice-text">
+            Keep this tab open while you check your email.
+          </p>
+
+          <!-- Back to Login Button -->
+          <button type="button" class="btn-primary" id="backToLoginFromInbox">
+            <span>Back to Login</span>
+            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </button>
+
+          <!-- Resend action with countdown -->
+          <div class="resend-row">
+            <span>Didn't get the email? </span>
+            <button type="button" class="btn-resend" id="btnResendLink">Resend email (<span id="resendCount">58s</span>)</button>
+          </div>
+
+          <!-- Spam notice -->
+          <footer class="auth-footer-notice">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            <span>Don't see it? Check your spam or junk folder</span>
+          </footer>
+        </section>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- ====================================================================
+       INTERACTIVE DEMO PREVIEW CONTROLLER (Pill Bar)
+       You can remove this bar in production, or use it to easily demo all 3 views!
+       ==================================================================== -->
+  <nav class="demo-switcher-bar" aria-label="Demo View Switcher">
+    <button type="button" class="demo-pill-btn active" data-target="screen-login">1. Admin Login</button>
+    <button type="button" class="demo-pill-btn" data-target="screen-forgot">2. Forgot Password</button>
+    <button type="button" class="demo-pill-btn" data-target="screen-inbox">3. Check Inbox</button>
+    <a href="dashboard.html" class="demo-pill-btn" style="text-decoration: none; color: #52b788; font-weight: 600;">Dashboard &rarr;</a>
+  </nav>
+
+  <!-- Main JavaScript File -->
+  <script src="script.js"></script>
+</body>
+</html>
